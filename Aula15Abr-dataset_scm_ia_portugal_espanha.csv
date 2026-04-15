@@ -1,0 +1,181 @@
+﻿id_pedido,cliente,pais,regiao,categoria_produto,data_pedido,data_prometida_entrega,data_real_entrega,modalidade_transporte,armazem,fornecedor,transportadora,valor_pedido_eur,unidades_pedidas,stock_disponivel,lead_time_dias,taxa_atraso_historica,distancia_km,prioridade,score_risco_ia,atraso_previsto,atraso_real
+PED20260001,Continente Online,Portugal,Lisboa e Vale do Tejo,Material de Escritório,2026-03-12,2026-03-14,2026-03-14,Rodoviário,Valência,Porto Tech Parts,DHL Iberia,2596.56,156,109,2,0.14,1136,Média,0.36,0,0
+PED20260002,Mercado Coimbra Norte,Portugal,Centro,Peças Industriais,2026-02-14,2026-02-16,2026-02-16,Rodoviário,Porto,Madrid Goods Network,SEUR,3132.78,28,85,2,0.18,795,Alta,0.13,0,0
+PED20260003,Retalho Porto Sul,Portugal,Norte,Eletrónica,2026-01-14,2026-01-21,2026-01-23,Rodoviário,Madrid,Porto Tech Parts,GLS Iberia,9381.07,76,29,7,0.17,166,Alta,0.48,0,1
+PED20260004,Staples Portugal,Portugal,Alentejo,Saúde e Bem-Estar,2026-01-09,2026-01-13,2026-01-13,Expresso,Valência,Norte Industrial,DHL Iberia,16316.24,215,162,4,0.14,1042,Alta,0.33,0,0
+PED20260005,Auchan Retail PT,Portugal,Centro,Material de Escritório,2026-03-17,2026-03-24,2026-03-29,Paletizado,Madrid,Norte Industrial,MRW,529.09,97,153,7,0.40,884,Média,0.67,1,1
+PED20260006,Farmacia Valencia Centro,Espanha,Andaluzia,Eletrodomésticos,2026-03-11,2026-03-16,2026-03-15,Rodoviário,Valência,IberSupply Logistics,NACEX,24451.77,201,104,5,0.10,1045,Média,0.42,0,0
+PED20260007,Madrid B2B Market,Espanha,País Basco,Eletrodomésticos,2026-03-12,2026-03-21,2026-03-20,Expresso,Porto,Galicia Procurement,DHL Iberia,32479.05,240,164,9,0.13,138,Alta,0.42,0,0
+PED20260008,Retalho Porto Sul,Portugal,Alentejo,Eletrónica,2026-03-13,2026-03-16,2026-03-16,Rodoviário,Porto,Norte Industrial,GLS Iberia,31399.31,72,52,3,0.11,837,Média,0.46,0,0
+PED20260009,Carrefour España,Espanha,Catalunha,Material de Escritório,2026-03-18,2026-03-22,2026-03-27,Paletizado,Lisboa,Atlântico Distribuição,SEUR,164.68,6,183,4,0.18,1014,Média,0.29,0,1
+PED20260010,El Corte Inglés Madrid,Espanha,Valência,Peças Industriais,2026-02-25,2026-03-04,2026-03-08,Paletizado,Lisboa,Porto Tech Parts,CTT Expresso,20539.70,124,130,7,0.11,243,Média,0.35,0,1
+PED20260011,Makro Portugal,Portugal,Centro,Saúde e Bem-Estar,2026-03-13,2026-03-15,2026-03-14,Expresso,Lisboa,Andalucía Supply Hub,DHL Iberia,1058.36,17,84,2,0.05,1005,Alta,0.16,0,0
+PED20260012,Makro Portugal,Portugal,Norte,Peças Industriais,2026-04-05,2026-04-14,2026-04-13,Expresso,Barcelona,Lisboa Components,GLS Iberia,22348.39,174,114,9,0.08,137,Média,0.42,0,0
+PED20260013,Farmácia Sesimbra,Portugal,Norte,Material de Escritório,2026-02-22,2026-02-24,2026-02-23,Paletizado,Lisboa,Atlântico Distribuição,MRW,1209.54,232,60,2,0.09,554,Alta,0.29,0,0
+PED20260014,Makro España,Espanha,Catalunha,Saúde e Bem-Estar,2026-03-15,2026-03-17,2026-03-16,Rodoviário,Lisboa,Andalucía Supply Hub,SEUR,297.92,23,62,2,0.11,917,Média,0.31,0,0
+PED20260015,Bilbao Smart Retail,Espanha,País Basco,Eletrónica,2026-01-21,2026-01-26,2026-01-26,Rodoviário,Lisboa,Catalunya Freight,SEUR,10734.03,77,57,5,0.05,124,Média,0.28,0,0
+PED20260016,Continente Online,Portugal,Lisboa e Vale do Tejo,Material de Escritório,2026-02-25,2026-03-06,2026-03-07,Expresso,Valência,Lisboa Components,DHL Iberia,49.17,7,211,9,0.25,900,Média,0.51,1,1
+PED20260017,El Corte Inglés Madrid,Espanha,País Basco,Material de Escritório,2026-04-07,2026-04-10,2026-04-09,Expresso,Sevilha,Atlântico Distribuição,SEUR,1741.89,65,210,3,0.01,863,Alta,0.27,0,0
+PED20260018,MediaMarkt Iberia,Espanha,País Basco,Eletrónica,2026-03-01,2026-03-07,2026-03-07,Expresso,Lisboa,Valencia Source,GLS Iberia,12196.04,83,163,6,0.01,591,Baixa,0.17,0,0
+PED20260019,Pingo Doce Empresas,Portugal,Lisboa e Vale do Tejo,Material de Escritório,2026-02-15,2026-02-21,2026-02-20,Rodoviário,Lisboa,Galicia Procurement,SEUR,2153.87,116,72,6,0.07,1122,Média,0.47,0,0
+PED20260020,Makro España,Espanha,Madrid,Saúde e Bem-Estar,2026-02-09,2026-02-18,2026-02-23,Rodoviário,Valência,Galicia Procurement,SEUR,1832.25,84,97,9,0.07,376,Média,0.38,0,1
+PED20260021,Auchan Retail PT,Portugal,Lisboa e Vale do Tejo,Material de Escritório,2026-03-02,2026-03-10,2026-03-09,Paletizado,Sevilha,Valencia Source,GLS Iberia,3412.02,118,93,8,0.04,706,Média,0.52,1,0
+PED20260022,El Corte Inglés Madrid,Espanha,Catalunha,Material de Escritório,2026-04-10,2026-04-12,2026-04-11,Expresso,Porto,IberSupply Logistics,CTT Expresso,2637.99,121,59,2,0.19,31,Média,0.35,0,0
+PED20260023,El Corte Inglés Madrid,Espanha,Catalunha,Eletrodomésticos,2026-01-17,2026-01-25,2026-01-25,Rodoviário,Sevilha,Andalucía Supply Hub,CTT Expresso,8966.97,39,143,8,0.02,1053,Alta,0.35,0,0
+PED20260024,Retalho Porto Sul,Portugal,Alentejo,Peças Industriais,2026-03-09,2026-03-17,2026-03-19,Paletizado,Porto,Lisboa Components,GLS Iberia,32769.89,165,123,8,0.22,328,Média,0.70,1,1
+PED20260025,Makro Portugal,Portugal,Alentejo,Saúde e Bem-Estar,2026-02-24,2026-03-03,2026-03-03,Rodoviário,Barcelona,Norte Industrial,Correos Express,11670.13,236,134,7,0.01,631,Baixa,0.65,1,0
+PED20260026,Staples Portugal,Portugal,Centro,Saúde e Bem-Estar,2026-03-29,2026-04-05,2026-04-09,Expresso,Lisboa,Valencia Source,Correos Express,1888.90,190,148,7,0.21,75,Média,0.49,0,1
+PED20260027,Continente Online,Portugal,Lisboa e Vale do Tejo,Peças Industriais,2026-02-19,2026-02-24,2026-02-23,Expresso,Barcelona,Madrid Goods Network,DHL Iberia,5992.17,197,169,5,0.10,479,Média,0.31,0,0
+PED20260028,FNAC Portugal,Portugal,Centro,Eletrónica,2026-01-16,2026-01-20,2026-01-23,Rodoviário,Porto,Galicia Procurement,DHL Iberia,15554.28,124,93,4,0.01,657,Média,0.24,0,1
+PED20260029,Makro España,Espanha,País Basco,Material de Escritório,2026-04-01,2026-04-06,2026-04-10,Paletizado,Valência,Atlântico Distribuição,MRW,4058.20,222,83,5,0.01,161,Baixa,0.41,0,1
+PED20260030,Carrefour España,Espanha,Valência,Saúde e Bem-Estar,2026-03-09,2026-03-14,2026-03-14,Expresso,Porto,Andalucía Supply Hub,NACEX,9822.69,162,142,5,0.04,197,Baixa,0.30,0,0
+PED20260031,Alcampo Retail,Espanha,Madrid,Peças Industriais,2026-02-04,2026-02-10,2026-02-10,Rodoviário,Barcelona,Madrid Goods Network,DHL Iberia,2821.32,76,176,6,0.05,1020,Média,0.22,0,0
+PED20260032,Tech Sevilla Store,Espanha,Madrid,Eletrónica,2026-03-27,2026-04-02,2026-04-03,Paletizado,Barcelona,Lisboa Components,DHL Iberia,56534.47,126,76,6,0.11,492,Baixa,0.35,0,1
+PED20260033,FNAC Portugal,Portugal,Centro,Peças Industriais,2026-01-14,2026-01-18,2026-01-17,Paletizado,Sevilha,Lisboa Components,NACEX,17188.72,80,124,4,0.18,278,Média,0.22,0,0
+PED20260034,Loja Algarve Tech,Portugal,Lisboa e Vale do Tejo,Peças Industriais,2026-02-03,2026-02-11,2026-02-16,Rodoviário,Madrid,Andalucía Supply Hub,Correos Express,1694.54,34,142,8,0.06,642,Alta,0.27,0,1
+PED20260035,Distribución Galicia,Espanha,Galiza,Eletrodomésticos,2026-02-27,2026-03-04,2026-03-06,Expresso,Sevilha,Porto Tech Parts,GLS Iberia,62200.91,225,75,5,0.09,452,Média,0.26,0,1
+PED20260036,Farmácia Sesimbra,Portugal,Norte,Material de Escritório,2026-02-08,2026-02-09,2026-02-09,Paletizado,Barcelona,IberSupply Logistics,Correos Express,315.00,64,110,1,0.19,1227,Média,0.36,0,0
+PED20260037,Farmácia Sesimbra,Portugal,Centro,Material de Escritório,2026-02-10,2026-02-15,2026-02-15,Rodoviário,Porto,Lisboa Components,GLS Iberia,3328.91,117,174,5,0.22,101,Baixa,0.37,0,0
+PED20260038,Pingo Doce Empresas,Portugal,Centro,Eletrodomésticos,2026-04-09,2026-04-12,2026-04-13,Expresso,Valência,Galicia Procurement,CTT Expresso,42550.89,125,66,3,0.12,982,Média,0.35,0,1
+PED20260039,El Corte Inglés Lisboa,Portugal,Alentejo,Peças Industriais,2026-01-13,2026-01-19,2026-01-24,Paletizado,Barcelona,Lisboa Components,NACEX,10455.71,69,61,6,0.32,866,Baixa,0.61,1,1
+PED20260040,Retail Barcelona Hub,Espanha,Valência,Eletrónica,2026-02-27,2026-03-07,2026-03-07,Rodoviário,Sevilha,Porto Tech Parts,SEUR,13382.36,36,189,8,0.15,480,Alta,0.41,0,0
+PED20260041,Distribuição Minho,Portugal,Centro,Peças Industriais,2026-03-04,2026-03-12,2026-03-12,Expresso,Valência,Lisboa Components,MRW,3169.21,67,93,8,0.14,869,Média,0.37,0,0
+PED20260042,Auchan Retail PT,Portugal,Lisboa e Vale do Tejo,Eletrodomésticos,2026-03-04,2026-03-10,2026-03-10,Rodoviário,Barcelona,Galicia Procurement,NACEX,19553.15,90,60,6,0.10,498,Média,0.34,0,0
+PED20260043,Canarias Trade,Espanha,Valência,Peças Industriais,2026-03-18,2026-03-24,2026-03-24,Rodoviário,Lisboa,Catalunya Freight,Correos Express,11084.66,227,197,6,0.22,336,Média,0.44,0,0
+PED20260044,Distribución Galicia,Espanha,País Basco,Peças Industriais,2026-02-19,2026-02-25,2026-02-24,Paletizado,Madrid,Atlântico Distribuição,GLS Iberia,24128.31,165,103,6,0.01,485,Alta,0.37,0,0
+PED20260045,Staples Portugal,Portugal,Centro,Saúde e Bem-Estar,2026-02-18,2026-02-25,2026-02-24,Rodoviário,Madrid,IberSupply Logistics,CTT Expresso,865.41,42,121,7,0.21,513,Média,0.31,0,0
+PED20260046,Retail Barcelona Hub,Espanha,Andaluzia,Peças Industriais,2026-03-29,2026-04-07,2026-04-11,Expresso,Lisboa,Lisboa Components,NACEX,7112.82,45,227,9,0.22,638,Alta,0.39,0,1
+PED20260047,FNAC Portugal,Portugal,Alentejo,Eletrodomésticos,2026-03-27,2026-04-03,2026-04-06,Paletizado,Madrid,Madrid Goods Network,MRW,22363.50,75,219,7,0.14,606,Média,0.44,0,1
+PED20260048,Distribuição Minho,Portugal,Centro,Eletrodomésticos,2026-01-19,2026-01-21,2026-01-23,Paletizado,Valência,Lisboa Components,NACEX,75988.37,236,110,2,0.11,689,Média,0.41,0,1
+PED20260049,Farmacia Valencia Centro,Espanha,Galiza,Saúde e Bem-Estar,2026-02-14,2026-02-16,2026-02-15,Expresso,Barcelona,Catalunya Freight,SEUR,7457.81,124,146,2,0.12,1161,Média,0.24,0,0
+PED20260050,Farmacia Valencia Centro,Espanha,Madrid,Peças Industriais,2026-02-19,2026-02-25,2026-03-01,Paletizado,Valência,Madrid Goods Network,NACEX,4544.53,32,94,6,0.05,970,Média,0.34,0,1
+PED20260051,Worten Business,Portugal,Norte,Eletrónica,2026-03-11,2026-03-14,2026-03-14,Rodoviário,Lisboa,Lisboa Components,Correos Express,36381.76,104,48,3,0.16,869,Baixa,0.51,1,0
+PED20260052,Mercadona Empresas,Espanha,País Basco,Saúde e Bem-Estar,2026-01-14,2026-01-20,2026-01-19,Rodoviário,Barcelona,Porto Tech Parts,Correos Express,11190.37,144,178,6,0.06,207,Alta,0.18,0,0
+PED20260053,Mercado Coimbra Norte,Portugal,Lisboa e Vale do Tejo,Material de Escritório,2026-04-09,2026-04-18,2026-04-20,Rodoviário,Sevilha,Catalunya Freight,GLS Iberia,1386.66,58,41,9,0.05,316,Baixa,0.63,1,1
+PED20260054,Distribuição Minho,Portugal,Norte,Material de Escritório,2026-01-24,2026-01-29,2026-01-28,Paletizado,Porto,IberSupply Logistics,SEUR,84.89,18,156,5,0.19,945,Média,0.33,0,0
+PED20260055,Tech Sevilla Store,Espanha,País Basco,Eletrónica,2026-03-05,2026-03-13,2026-03-13,Expresso,Barcelona,IberSupply Logistics,Correos Express,2710.55,23,155,8,0.09,800,Média,0.45,0,0
+PED20260056,Carrefour España,Espanha,País Basco,Eletrónica,2026-01-31,2026-02-07,2026-02-06,Expresso,Porto,Norte Industrial,NACEX,31353.95,91,143,7,0.06,991,Média,0.33,0,0
+PED20260057,Carrefour España,Espanha,País Basco,Saúde e Bem-Estar,2026-03-14,2026-03-20,2026-03-25,Paletizado,Lisboa,Catalunya Freight,MRW,12408.46,176,153,6,0.18,1249,Alta,0.39,0,1
+PED20260058,Worten Business,Portugal,Alentejo,Material de Escritório,2026-02-06,2026-02-10,2026-02-13,Expresso,Sevilha,Atlântico Distribuição,SEUR,4174.96,211,62,4,0.17,567,Baixa,0.31,0,1
+PED20260059,Alcampo Retail,Espanha,Madrid,Material de Escritório,2026-04-06,2026-04-07,2026-04-06,Expresso,Valência,Catalunya Freight,MRW,341.72,28,119,1,0.07,1182,Baixa,0.26,0,0
+PED20260060,Mercado Coimbra Norte,Portugal,Algarve,Eletrónica,2026-03-20,2026-03-28,2026-04-02,Paletizado,Barcelona,Atlântico Distribuição,SEUR,11587.16,111,107,8,0.26,651,Média,0.73,1,1
+PED20260061,Continente Online,Portugal,Centro,Saúde e Bem-Estar,2026-01-17,2026-01-18,2026-01-18,Expresso,Porto,Porto Tech Parts,GLS Iberia,5810.49,132,119,1,0.08,167,Média,0.27,0,0
+PED20260062,Staples Portugal,Portugal,Norte,Saúde e Bem-Estar,2026-02-24,2026-03-01,2026-03-06,Expresso,Sevilha,Galicia Procurement,Correos Express,1398.32,34,12,5,0.25,914,Média,0.67,1,1
+PED20260063,Farmacia Valencia Centro,Espanha,Madrid,Peças Industriais,2026-01-23,2026-01-25,2026-01-27,Rodoviário,Madrid,Lisboa Components,NACEX,28572.03,135,78,2,0.06,322,Média,0.25,0,1
+PED20260064,Loja Algarve Tech,Portugal,Centro,Eletrónica,2026-03-15,2026-03-23,2026-03-23,Expresso,Valência,Catalunya Freight,GLS Iberia,55090.18,179,177,8,0.08,159,Média,0.49,0,0
+PED20260065,El Corte Inglés Lisboa,Portugal,Algarve,Eletrónica,2026-02-07,2026-02-09,2026-02-08,Rodoviário,Barcelona,Lisboa Components,Correos Express,50975.06,170,184,2,0.01,104,Baixa,0.22,0,0
+PED20260066,Distribución Galicia,Espanha,Valência,Eletrodomésticos,2026-02-14,2026-02-16,2026-02-15,Rodoviário,Barcelona,Catalunya Freight,CTT Expresso,20476.32,134,111,2,0.11,599,Alta,0.24,0,0
+PED20260067,Carrefour España,Espanha,Andaluzia,Eletrónica,2026-03-27,2026-03-30,2026-03-30,Expresso,Barcelona,Norte Industrial,NACEX,37577.80,90,184,3,0.19,193,Média,0.14,0,0
+PED20260068,Distribuição Minho,Portugal,Algarve,Eletrónica,2026-01-25,2026-01-29,2026-01-28,Rodoviário,Madrid,Valencia Source,MRW,13648.36,92,174,4,0.10,1125,Média,0.26,0,0
+PED20260069,Bilbao Smart Retail,Espanha,Galiza,Material de Escritório,2026-03-31,2026-04-03,2026-04-07,Rodoviário,Porto,Galicia Procurement,Correos Express,1779.12,189,72,3,0.16,939,Baixa,0.44,0,1
+PED20260070,El Corte Inglés Lisboa,Portugal,Algarve,Peças Industriais,2026-02-24,2026-02-27,2026-03-01,Expresso,Madrid,Andalucía Supply Hub,GLS Iberia,20167.88,214,141,3,0.23,1076,Média,0.61,1,1
+PED20260071,Tech Sevilla Store,Espanha,Galiza,Material de Escritório,2026-01-05,2026-01-12,2026-01-15,Expresso,Porto,Valencia Source,CTT Expresso,93.66,18,81,7,0.18,706,Alta,0.32,0,1
+PED20260072,Canarias Trade,Espanha,Catalunha,Peças Industriais,2026-01-29,2026-02-01,2026-02-01,Rodoviário,Lisboa,Andalucía Supply Hub,MRW,6433.60,145,183,3,0.09,956,Baixa,0.20,0,0
+PED20260073,Distribuição Minho,Portugal,Algarve,Eletrodomésticos,2026-03-21,2026-03-27,2026-03-27,Expresso,Porto,Porto Tech Parts,NACEX,13771.92,66,90,6,0.11,1059,Média,0.22,0,0
+PED20260074,Distribuição Minho,Portugal,Alentejo,Saúde e Bem-Estar,2026-02-15,2026-02-19,2026-02-19,Expresso,Lisboa,Lisboa Components,NACEX,3380.25,192,107,4,0.10,378,Alta,0.31,0,0
+PED20260075,Mercado Coimbra Norte,Portugal,Centro,Eletrónica,2026-01-27,2026-01-28,2026-01-31,Rodoviário,Madrid,Andalucía Supply Hub,CTT Expresso,37889.42,85,174,1,0.09,751,Baixa,0.22,0,1
+PED20260076,Carrefour España,Espanha,Andaluzia,Peças Industriais,2026-01-25,2026-02-02,2026-02-03,Expresso,Barcelona,Valencia Source,NACEX,6512.94,182,6,8,0.13,389,Média,0.51,1,1
+PED20260077,Retail Barcelona Hub,Espanha,Andaluzia,Saúde e Bem-Estar,2026-02-27,2026-03-05,2026-03-04,Expresso,Valência,Andalucía Supply Hub,MRW,3304.39,119,217,6,0.17,173,Baixa,0.20,0,0
+PED20260078,Worten Business,Portugal,Algarve,Peças Industriais,2026-02-17,2026-02-23,2026-02-23,Rodoviário,Lisboa,IberSupply Logistics,DHL Iberia,11205.15,103,132,6,0.12,301,Alta,0.14,0,0
+PED20260079,Pingo Doce Empresas,Portugal,Norte,Material de Escritório,2026-02-04,2026-02-12,2026-02-12,Paletizado,Barcelona,Andalucía Supply Hub,MRW,959.48,59,160,8,0.13,931,Baixa,0.62,1,0
+PED20260080,Canarias Trade,Espanha,Madrid,Eletrodomésticos,2026-04-01,2026-04-04,2026-04-03,Rodoviário,Madrid,Norte Industrial,SEUR,31590.61,208,97,3,0.17,1192,Média,0.42,0,0
+PED20260081,Pingo Doce Empresas,Portugal,Lisboa e Vale do Tejo,Peças Industriais,2026-01-11,2026-01-14,2026-01-19,Expresso,Barcelona,Andalucía Supply Hub,MRW,15140.52,86,85,3,0.06,392,Alta,0.30,0,1
+PED20260082,Lusodata Solutions,Portugal,Norte,Eletrodomésticos,2026-04-02,2026-04-06,2026-04-08,Rodoviário,Porto,Catalunya Freight,SEUR,11632.42,93,177,4,0.10,640,Média,0.20,0,1
+PED20260083,Worten Business,Portugal,Algarve,Eletrodomésticos,2026-01-05,2026-01-07,2026-01-07,Rodoviário,Sevilha,Madrid Goods Network,GLS Iberia,790.22,16,201,2,0.09,1137,Alta,0.17,0,0
+PED20260084,Mercado Coimbra Norte,Portugal,Alentejo,Saúde e Bem-Estar,2026-02-24,2026-03-04,2026-03-05,Rodoviário,Valência,Andalucía Supply Hub,CTT Expresso,7486.07,123,139,8,0.23,287,Baixa,0.57,1,1
+PED20260085,El Corte Inglés Madrid,Espanha,Valência,Eletrónica,2026-02-08,2026-02-15,2026-02-19,Rodoviário,Porto,Lisboa Components,Correos Express,89828.20,226,91,7,0.09,346,Baixa,0.61,1,1
+PED20260086,Tech Sevilla Store,Espanha,Madrid,Eletrónica,2026-02-16,2026-02-17,2026-02-17,Rodoviário,Barcelona,Valencia Source,MRW,6608.09,17,106,1,0.24,294,Baixa,0.37,0,0
+PED20260087,Mercadona Empresas,Espanha,Valência,Eletrónica,2026-01-11,2026-01-18,2026-01-21,Expresso,Porto,Galicia Procurement,MRW,51170.77,134,59,7,0.16,784,Média,0.55,1,1
+PED20260088,FNAC Portugal,Portugal,Algarve,Eletrodomésticos,2026-04-03,2026-04-09,2026-04-09,Rodoviário,Lisboa,Valencia Source,MRW,18978.88,210,65,6,0.14,632,Baixa,0.35,0,0
+PED20260089,Tech Sevilla Store,Espanha,Madrid,Saúde e Bem-Estar,2026-04-04,2026-04-05,2026-04-05,Expresso,Lisboa,Madrid Goods Network,NACEX,7785.58,157,0,1,0.16,369,Média,0.29,0,0
+PED20260090,Lusodata Solutions,Portugal,Centro,Eletrónica,2026-02-11,2026-02-18,2026-02-18,Rodoviário,Lisboa,Galicia Procurement,NACEX,10995.51,43,91,7,0.16,302,Baixa,0.36,0,0
+PED20260091,Alcampo Retail,Espanha,Catalunha,Peças Industriais,2026-04-04,2026-04-09,2026-04-09,Expresso,Sevilha,Norte Industrial,SEUR,34848.78,161,0,5,0.15,444,Média,0.37,0,0
+PED20260092,Farmacia Valencia Centro,Espanha,País Basco,Saúde e Bem-Estar,2026-02-21,2026-02-27,2026-02-27,Paletizado,Sevilha,Lisboa Components,CTT Expresso,6653.51,202,133,6,0.07,1001,Média,0.41,0,0
+PED20260093,MediaMarkt Iberia,Espanha,Madrid,Eletrodomésticos,2026-03-10,2026-03-14,2026-03-14,Rodoviário,Porto,Galicia Procurement,DHL Iberia,56952.14,168,122,4,0.17,343,Média,0.28,0,0
+PED20260094,Retail Barcelona Hub,Espanha,Catalunha,Saúde e Bem-Estar,2026-01-13,2026-01-17,2026-01-17,Rodoviário,Valência,Madrid Goods Network,SEUR,5370.37,141,113,4,0.01,94,Alta,0.39,0,0
+PED20260095,Hotelaria Alentejo,Portugal,Lisboa e Vale do Tejo,Eletrónica,2026-02-13,2026-02-18,2026-02-18,Paletizado,Sevilha,IberSupply Logistics,SEUR,30567.73,121,182,5,0.12,250,Baixa,0.27,0,0
+PED20260096,Continente Online,Portugal,Lisboa e Vale do Tejo,Saúde e Bem-Estar,2026-03-24,2026-03-31,2026-04-03,Rodoviário,Porto,Galicia Procurement,NACEX,16995.17,216,79,7,0.16,33,Média,0.46,0,1
+PED20260097,Dia Distribución,Espanha,Galiza,Eletrodomésticos,2026-01-09,2026-01-11,2026-01-13,Expresso,Valência,IberSupply Logistics,SEUR,9473.46,124,102,2,0.21,624,Média,0.32,0,1
+PED20260098,MediaMarkt Iberia,Espanha,Valência,Eletrodomésticos,2026-04-08,2026-04-17,2026-04-16,Paletizado,Valência,Madrid Goods Network,Correos Express,37483.29,210,101,9,0.08,760,Alta,0.54,1,0
+PED20260099,Loja Algarve Tech,Portugal,Algarve,Material de Escritório,2026-01-28,2026-02-05,2026-02-06,Expresso,Sevilha,Catalunya Freight,SEUR,183.75,28,163,8,0.08,651,Baixa,0.45,0,1
+PED20260100,Loja Algarve Tech,Portugal,Norte,Eletrónica,2026-01-09,2026-01-11,2026-01-11,Rodoviário,Valência,Valencia Source,SEUR,44987.39,125,170,2,0.15,803,Média,0.25,0,0
+PED20260101,Carrefour España,Espanha,País Basco,Eletrodomésticos,2026-03-11,2026-03-18,2026-03-17,Rodoviário,Madrid,Catalunya Freight,NACEX,36808.68,140,216,7,0.29,888,Baixa,0.63,1,0
+PED20260102,Alcampo Retail,Espanha,Catalunha,Saúde e Bem-Estar,2026-02-24,2026-02-25,2026-02-24,Rodoviário,Lisboa,Porto Tech Parts,NACEX,3870.02,66,126,1,0.17,843,Alta,0.18,0,0
+PED20260103,Farmácia Sesimbra,Portugal,Lisboa e Vale do Tejo,Material de Escritório,2026-02-12,2026-02-16,2026-02-16,Paletizado,Sevilha,Galicia Procurement,SEUR,1161.62,82,223,4,0.01,378,Alta,0.24,0,0
+PED20260104,El Corte Inglés Lisboa,Portugal,Alentejo,Eletrodomésticos,2026-02-19,2026-02-22,2026-02-21,Expresso,Barcelona,Madrid Goods Network,NACEX,11456.96,198,83,3,0.12,865,Baixa,0.51,1,0
+PED20260105,El Corte Inglés Madrid,Espanha,Andaluzia,Material de Escritório,2026-01-13,2026-01-22,2026-01-26,Expresso,Lisboa,Madrid Goods Network,NACEX,3673.49,190,127,9,0.11,1223,Alta,0.60,1,1
+PED20260106,Lusodata Solutions,Portugal,Lisboa e Vale do Tejo,Saúde e Bem-Estar,2026-04-08,2026-04-16,2026-04-19,Paletizado,Porto,IberSupply Logistics,DHL Iberia,11412.18,239,123,8,0.24,1112,Baixa,0.85,1,1
+PED20260107,Tech Sevilla Store,Espanha,Madrid,Peças Industriais,2026-03-15,2026-03-19,2026-03-24,Expresso,Madrid,Madrid Goods Network,DHL Iberia,9793.56,194,143,4,0.18,797,Média,0.30,0,1
+PED20260108,Dia Distribución,Espanha,Valência,Peças Industriais,2026-04-04,2026-04-13,2026-04-15,Expresso,Valência,Andalucía Supply Hub,DHL Iberia,24415.78,130,162,9,0.28,119,Baixa,0.57,1,1
+PED20260109,Retalho Porto Sul,Portugal,Centro,Eletrónica,2026-03-24,2026-04-01,2026-04-01,Expresso,Barcelona,Porto Tech Parts,MRW,47599.39,173,114,8,0.13,55,Baixa,0.55,1,0
+PED20260110,Pingo Doce Empresas,Portugal,Norte,Eletrodomésticos,2026-02-16,2026-02-21,2026-02-20,Paletizado,Porto,Catalunya Freight,DHL Iberia,52427.00,208,81,5,0.18,185,Média,0.39,0,0
+PED20260111,Makro Portugal,Portugal,Alentejo,Peças Industriais,2026-01-23,2026-01-25,2026-01-25,Paletizado,Lisboa,Norte Industrial,Correos Express,26262.49,132,160,2,0.03,490,Baixa,0.25,0,0
+PED20260112,Mercadona Empresas,Espanha,Madrid,Saúde e Bem-Estar,2026-02-11,2026-02-12,2026-02-12,Rodoviário,Valência,Norte Industrial,MRW,785.29,58,48,1,0.06,816,Baixa,0.46,0,0
+PED20260113,Mercado Coimbra Norte,Portugal,Norte,Eletrodomésticos,2026-01-11,2026-01-17,2026-01-17,Expresso,Lisboa,Madrid Goods Network,CTT Expresso,55284.56,159,134,6,0.01,1024,Baixa,0.38,0,0
+PED20260114,MediaMarkt Iberia,Espanha,País Basco,Eletrodomésticos,2026-04-03,2026-04-05,2026-04-04,Expresso,Sevilha,Valencia Source,CTT Expresso,1777.65,26,114,2,0.21,651,Alta,0.13,0,0
+PED20260115,Pingo Doce Empresas,Portugal,Centro,Peças Industriais,2026-01-05,2026-01-07,2026-01-06,Paletizado,Sevilha,Andalucía Supply Hub,MRW,9762.39,95,56,2,0.09,1165,Média,0.53,1,0
+PED20260116,MediaMarkt Iberia,Espanha,Catalunha,Saúde e Bem-Estar,2026-02-26,2026-03-03,2026-03-07,Rodoviário,Barcelona,Lisboa Components,SEUR,6709.33,112,93,5,0.26,957,Baixa,0.59,1,1
+PED20260117,Madrid B2B Market,Espanha,Galiza,Peças Industriais,2026-03-26,2026-03-29,2026-03-29,Expresso,Madrid,Madrid Goods Network,Correos Express,17313.35,81,67,3,0.31,1025,Alta,0.65,1,0
+PED20260118,Dia Distribución,Espanha,Valência,Saúde e Bem-Estar,2026-01-25,2026-02-03,2026-02-06,Paletizado,Porto,Atlântico Distribuição,MRW,318.73,11,173,9,0.10,857,Alta,0.48,0,1
+PED20260119,Auchan Retail PT,Portugal,Centro,Peças Industriais,2026-02-22,2026-03-03,2026-03-05,Paletizado,Barcelona,Valencia Source,CTT Expresso,21483.80,134,209,9,0.06,1236,Média,0.51,1,1
+PED20260120,MediaMarkt Iberia,Espanha,País Basco,Eletrodomésticos,2026-04-08,2026-04-14,2026-04-13,Paletizado,Valência,IberSupply Logistics,MRW,45411.18,208,113,6,0.13,932,Média,0.44,0,0
+PED20260121,Mercadona Empresas,Espanha,Valência,Eletrónica,2026-04-05,2026-04-08,2026-04-09,Rodoviário,Lisboa,Lisboa Components,Correos Express,13223.76,94,99,3,0.21,673,Alta,0.13,0,1
+PED20260122,Lusodata Solutions,Portugal,Lisboa e Vale do Tejo,Eletrónica,2026-01-22,2026-01-28,2026-01-27,Paletizado,Porto,Catalunya Freight,NACEX,54926.46,148,70,6,0.17,424,Baixa,0.40,0,0
+PED20260123,FNAC Portugal,Portugal,Lisboa e Vale do Tejo,Eletrónica,2026-01-27,2026-02-04,2026-02-03,Rodoviário,Sevilha,Galicia Procurement,CTT Expresso,9037.50,34,112,8,0.29,732,Média,0.45,0,0
+PED20260124,Bilbao Smart Retail,Espanha,Galiza,Eletrodomésticos,2026-02-10,2026-02-12,2026-02-11,Expresso,Porto,Atlântico Distribuição,NACEX,9734.26,51,100,2,0.16,1120,Baixa,0.28,0,0
+PED20260125,Staples Portugal,Portugal,Lisboa e Vale do Tejo,Material de Escritório,2026-02-16,2026-02-17,2026-02-18,Paletizado,Barcelona,Catalunya Freight,SEUR,2147.44,129,180,1,0.24,929,Baixa,0.55,1,1
+PED20260126,Auchan Retail PT,Portugal,Norte,Saúde e Bem-Estar,2026-03-15,2026-03-23,2026-03-22,Rodoviário,Madrid,Porto Tech Parts,MRW,11504.93,145,54,8,0.12,923,Alta,0.57,1,0
+PED20260127,Auchan Retail PT,Portugal,Norte,Peças Industriais,2026-01-17,2026-01-21,2026-01-21,Expresso,Lisboa,Lisboa Components,SEUR,3085.39,58,144,4,0.03,443,Alta,0.20,0,0
+PED20260128,Distribución Galicia,Espanha,Galiza,Material de Escritório,2026-03-08,2026-03-10,2026-03-09,Expresso,Madrid,Madrid Goods Network,NACEX,1162.09,39,205,2,0.10,531,Média,0.12,0,0
+PED20260129,Tech Sevilla Store,Espanha,Catalunha,Eletrodomésticos,2026-03-24,2026-03-26,2026-03-26,Expresso,Barcelona,Lisboa Components,NACEX,4402.80,108,79,2,0.12,210,Média,0.32,0,0
+PED20260130,Mercado Coimbra Norte,Portugal,Algarve,Peças Industriais,2026-02-07,2026-02-13,2026-02-12,Expresso,Porto,Porto Tech Parts,Correos Express,4303.87,145,62,6,0.08,961,Média,0.36,0,0
+PED20260131,Tech Sevilla Store,Espanha,Madrid,Peças Industriais,2026-02-06,2026-02-08,2026-02-09,Paletizado,Porto,Porto Tech Parts,NACEX,24960.79,172,106,2,0.16,499,Média,0.35,0,1
+PED20260132,FNAC Portugal,Portugal,Alentejo,Eletrónica,2026-01-03,2026-01-04,2026-01-04,Paletizado,Porto,Catalunya Freight,MRW,72382.49,183,105,1,0.16,229,Média,0.30,0,0
+PED20260133,Makro Portugal,Portugal,Centro,Material de Escritório,2026-01-23,2026-01-31,2026-02-04,Rodoviário,Sevilha,Atlântico Distribuição,MRW,1326.92,94,107,8,0.02,225,Média,0.26,0,1
+PED20260134,Makro España,Espanha,Andaluzia,Material de Escritório,2026-03-19,2026-03-24,2026-03-26,Rodoviário,Valência,Porto Tech Parts,SEUR,5436.06,204,130,5,0.12,822,Baixa,0.45,0,1
+PED20260135,Makro España,Espanha,Madrid,Material de Escritório,2026-01-03,2026-01-09,2026-01-12,Rodoviário,Sevilha,Andalucía Supply Hub,NACEX,1106.49,86,187,6,0.25,169,Média,0.21,0,1
+PED20260136,Continente Online,Portugal,Norte,Peças Industriais,2026-02-24,2026-03-03,2026-03-04,Paletizado,Valência,Norte Industrial,SEUR,6587.99,184,61,7,0.20,338,Média,0.65,1,1
+PED20260137,Canarias Trade,Espanha,Valência,Material de Escritório,2026-03-21,2026-03-22,2026-03-22,Expresso,Lisboa,IberSupply Logistics,DHL Iberia,280.72,84,83,1,0.03,730,Baixa,0.34,0,0
+PED20260138,El Corte Inglés Lisboa,Portugal,Centro,Saúde e Bem-Estar,2026-02-05,2026-02-14,2026-02-15,Expresso,Lisboa,Atlântico Distribuição,GLS Iberia,940.30,21,108,9,0.35,361,Alta,0.42,0,1
+PED20260139,FNAC Portugal,Portugal,Algarve,Eletrónica,2026-02-17,2026-02-24,2026-02-24,Rodoviário,Lisboa,IberSupply Logistics,GLS Iberia,94660.61,240,187,7,0.28,679,Baixa,0.67,1,0
+PED20260140,Madrid B2B Market,Espanha,Madrid,Eletrodomésticos,2026-01-24,2026-01-28,2026-01-30,Paletizado,Sevilha,Madrid Goods Network,CTT Expresso,28626.43,210,104,4,0.13,196,Alta,0.34,0,1
+PED20260141,Distribución Galicia,Espanha,Andaluzia,Eletrodomésticos,2026-04-10,2026-04-14,2026-04-18,Paletizado,Madrid,Porto Tech Parts,Correos Express,28299.14,192,188,4,0.05,39,Alta,0.47,0,1
+PED20260142,Carrefour España,Espanha,Catalunha,Eletrodomésticos,2026-01-20,2026-01-25,2026-01-29,Rodoviário,Barcelona,Porto Tech Parts,Correos Express,7611.77,28,154,5,0.15,1209,Alta,0.18,0,1
+PED20260143,Loja Algarve Tech,Portugal,Algarve,Eletrónica,2026-02-11,2026-02-18,2026-02-22,Rodoviário,Porto,Valencia Source,NACEX,43529.90,184,141,7,0.07,243,Média,0.44,0,1
+PED20260144,Makro España,Espanha,Madrid,Eletrodomésticos,2026-02-04,2026-02-06,2026-02-06,Expresso,Porto,Madrid Goods Network,GLS Iberia,3965.25,28,161,2,0.23,206,Média,0.30,0,0
+PED20260145,Distribuição Minho,Portugal,Lisboa e Vale do Tejo,Saúde e Bem-Estar,2026-03-13,2026-03-17,2026-03-16,Expresso,Barcelona,Catalunya Freight,CTT Expresso,1965.82,29,32,4,0.16,840,Média,0.20,0,0
+PED20260146,Bilbao Smart Retail,Espanha,Madrid,Eletrónica,2026-01-13,2026-01-19,2026-01-18,Expresso,Valência,Atlântico Distribuição,DHL Iberia,4518.57,36,173,6,0.15,893,Alta,0.16,0,0
+PED20260147,Dia Distribución,Espanha,Valência,Material de Escritório,2026-02-08,2026-02-16,2026-02-15,Paletizado,Sevilha,IberSupply Logistics,MRW,1467.56,110,162,8,0.07,530,Baixa,0.46,0,0
+PED20260148,Andalucía Office Supply,Espanha,País Basco,Saúde e Bem-Estar,2026-03-07,2026-03-13,2026-03-12,Expresso,Barcelona,Andalucía Supply Hub,MRW,6902.44,104,118,6,0.15,986,Alta,0.19,0,0
+PED20260149,Pingo Doce Empresas,Portugal,Centro,Material de Escritório,2026-01-30,2026-02-06,2026-02-05,Rodoviário,Valência,Lisboa Components,MRW,891.75,95,261,7,0.03,1231,Alta,0.29,0,0
+PED20260150,Lusodata Solutions,Portugal,Alentejo,Eletrodomésticos,2026-01-31,2026-02-04,2026-02-03,Rodoviário,Barcelona,Lisboa Components,DHL Iberia,3248.22,10,118,4,0.13,682,Baixa,0.14,0,0
+PED20260151,Lusodata Solutions,Portugal,Algarve,Saúde e Bem-Estar,2026-01-14,2026-01-20,2026-01-20,Paletizado,Valência,Atlântico Distribuição,SEUR,4430.23,82,59,6,0.33,1170,Média,0.72,1,0
+PED20260152,Distribuição Minho,Portugal,Algarve,Material de Escritório,2026-01-24,2026-01-25,2026-01-29,Paletizado,Valência,Valencia Source,SEUR,5347.03,184,167,1,0.10,472,Média,0.45,0,1
+PED20260153,El Corte Inglés Lisboa,Portugal,Norte,Material de Escritório,2026-01-13,2026-01-19,2026-01-19,Paletizado,Porto,Madrid Goods Network,SEUR,1483.10,119,154,6,0.13,917,Alta,0.33,0,0
+PED20260154,Bilbao Smart Retail,Espanha,Valência,Saúde e Bem-Estar,2026-03-16,2026-03-20,2026-03-21,Expresso,Lisboa,Norte Industrial,Correos Express,1232.85,46,34,4,0.17,788,Alta,0.26,0,1
+PED20260155,Distribución Galicia,Espanha,Galiza,Peças Industriais,2026-02-26,2026-03-01,2026-03-05,Rodoviário,Valência,IberSupply Logistics,Correos Express,2987.91,18,147,3,0.16,596,Média,0.17,0,1
+PED20260156,MediaMarkt Iberia,Espanha,Madrid,Saúde e Bem-Estar,2026-03-23,2026-03-31,2026-03-30,Expresso,Lisboa,IberSupply Logistics,Correos Express,2357.44,56,147,8,0.16,984,Alta,0.42,0,0
+PED20260157,MediaMarkt Iberia,Espanha,Andaluzia,Peças Industriais,2026-03-02,2026-03-07,2026-03-06,Rodoviário,Barcelona,Madrid Goods Network,DHL Iberia,9524.95,62,153,5,0.04,867,Média,0.27,0,0
+PED20260158,Madrid B2B Market,Espanha,Galiza,Peças Industriais,2026-03-03,2026-03-08,2026-03-07,Paletizado,Barcelona,Norte Industrial,NACEX,3357.43,25,42,5,0.23,321,Alta,0.26,0,0
+PED20260159,FNAC Portugal,Portugal,Centro,Material de Escritório,2026-03-23,2026-03-26,2026-03-25,Paletizado,Lisboa,IberSupply Logistics,Correos Express,5406.02,218,83,3,0.09,585,Média,0.43,0,0
+PED20260160,Carrefour España,Espanha,Valência,Material de Escritório,2026-01-14,2026-01-16,2026-01-19,Paletizado,Sevilha,Catalunya Freight,MRW,3987.79,149,136,2,0.01,1191,Alta,0.44,0,1
+PED20260161,MediaMarkt Iberia,Espanha,Galiza,Eletrodomésticos,2026-01-08,2026-01-16,2026-01-19,Expresso,Barcelona,Valencia Source,CTT Expresso,73452.67,240,114,8,0.21,221,Média,0.58,1,1
+PED20260162,Andalucía Office Supply,Espanha,Andaluzia,Saúde e Bem-Estar,2026-01-29,2026-02-05,2026-02-04,Rodoviário,Valência,Valencia Source,MRW,12607.54,194,60,7,0.14,846,Baixa,0.59,1,0
+PED20260163,FNAC Portugal,Portugal,Centro,Eletrónica,2026-04-02,2026-04-06,2026-04-06,Rodoviário,Barcelona,Porto Tech Parts,CTT Expresso,16110.56,75,82,4,0.20,933,Alta,0.16,0,0
+PED20260164,MediaMarkt Iberia,Espanha,Andaluzia,Eletrónica,2026-03-16,2026-03-20,2026-03-22,Rodoviário,Barcelona,Lisboa Components,CTT Expresso,31500.02,224,126,4,0.19,38,Baixa,0.33,0,1
+PED20260165,FNAC Portugal,Portugal,Lisboa e Vale do Tejo,Eletrodomésticos,2026-02-19,2026-02-25,2026-02-25,Paletizado,Valência,Lisboa Components,NACEX,24225.45,122,119,6,0.22,786,Média,0.55,1,0
+PED20260166,Retail Barcelona Hub,Espanha,Madrid,Peças Industriais,2026-02-06,2026-02-11,2026-02-13,Paletizado,Madrid,Atlântico Distribuição,SEUR,34389.23,172,94,5,0.01,1248,Média,0.51,1,1
+PED20260167,Distribuição Minho,Portugal,Alentejo,Saúde e Bem-Estar,2026-03-17,2026-03-21,2026-03-20,Expresso,Barcelona,Lisboa Components,Correos Express,6740.83,92,114,4,0.07,368,Média,0.23,0,0
+PED20260168,Carrefour España,Espanha,Valência,Material de Escritório,2026-02-13,2026-02-15,2026-02-14,Rodoviário,Sevilha,Lisboa Components,NACEX,1480.98,61,69,2,0.23,261,Alta,0.24,0,0
+PED20260169,Bilbao Smart Retail,Espanha,Catalunha,Eletrodomésticos,2026-02-23,2026-02-24,2026-02-25,Expresso,Valência,Atlântico Distribuição,GLS Iberia,41279.30,227,136,1,0.10,667,Média,0.34,0,1
+PED20260170,Alcampo Retail,Espanha,País Basco,Material de Escritório,2026-01-28,2026-01-31,2026-02-02,Rodoviário,Lisboa,Madrid Goods Network,NACEX,817.32,152,125,3,0.04,997,Média,0.36,0,1
+PED20260171,Mercadona Empresas,Espanha,Andaluzia,Eletrodomésticos,2026-02-02,2026-02-06,2026-02-06,Rodoviário,Valência,Porto Tech Parts,CTT Expresso,9859.43,182,150,4,0.08,615,Média,0.28,0,0
+PED20260172,Bilbao Smart Retail,Espanha,País Basco,Material de Escritório,2026-02-22,2026-02-23,2026-02-22,Rodoviário,Madrid,Madrid Goods Network,Correos Express,226.27,63,143,1,0.36,96,Baixa,0.35,0,0
+PED20260173,Distribuição Minho,Portugal,Norte,Eletrónica,2026-01-17,2026-01-26,2026-01-26,Expresso,Lisboa,IberSupply Logistics,NACEX,22847.62,69,91,9,0.14,572,Média,0.33,0,0
+PED20260174,Farmácia Sesimbra,Portugal,Algarve,Eletrónica,2026-01-27,2026-02-01,2026-02-02,Expresso,Lisboa,Lisboa Components,CTT Expresso,72551.85,217,86,5,0.12,1004,Baixa,0.40,0,1
+PED20260175,Lusodata Solutions,Portugal,Algarve,Peças Industriais,2026-01-14,2026-01-19,2026-01-19,Rodoviário,Sevilha,Catalunya Freight,CTT Expresso,9284.92,169,137,5,0.37,615,Média,0.43,0,0
+PED20260176,Pingo Doce Empresas,Portugal,Norte,Eletrónica,2026-02-27,2026-03-04,2026-03-03,Rodoviário,Valência,Catalunya Freight,NACEX,44348.57,229,114,5,0.05,999,Média,0.43,0,0
+PED20260177,Worten Business,Portugal,Norte,Material de Escritório,2026-03-29,2026-04-06,2026-04-10,Expresso,Sevilha,Atlântico Distribuição,Correos Express,1340.77,51,53,8,0.04,1009,Alta,0.50,1,1
+PED20260178,Mercadona Empresas,Espanha,Madrid,Saúde e Bem-Estar,2026-04-07,2026-04-11,2026-04-10,Paletizado,Valência,Madrid Goods Network,CTT Expresso,6893.05,176,162,4,0.06,808,Média,0.40,0,0
+PED20260179,Distribuição Minho,Portugal,Centro,Eletrodomésticos,2026-03-05,2026-03-11,2026-03-11,Rodoviário,Barcelona,Andalucía Supply Hub,GLS Iberia,4252.87,66,100,6,0.19,929,Baixa,0.29,0,0
+PED20260180,Alcampo Retail,Espanha,Madrid,Peças Industriais,2026-03-13,2026-03-14,2026-03-16,Expresso,Barcelona,IberSupply Logistics,CTT Expresso,13255.97,216,177,1,0.19,718,Baixa,0.31,0,1
