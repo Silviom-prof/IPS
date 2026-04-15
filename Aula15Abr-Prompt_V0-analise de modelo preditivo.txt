@@ -1,0 +1,60 @@
+Cria uma app web em HTML,CSS,JS, moderna e responsiva, para análise de um CSV de Supply Chain com apoio de IA preditiva, focada em alunos de Logística e Cadeia de Abastecimento.
+
+Objetivo:
+A app deve mostrar como um profissional de SCM usa dados e IA para analisar risco de atraso de entregas, interpretar matriz de confusão e apoiar decisões.
+
+Fonte de dados:
+A app deve carregar um CSV com colunas em português, incluindo:
+id_pedido, cliente, pais, regiao, categoria_produto, data_pedido, data_prometida_entrega, data_real_entrega, modalidade_transporte, armazem, fornecedor, transportadora, valor_pedido_eur, unidades_pedidas, stock_disponivel, lead_time_dias, taxa_atraso_historica, distancia_km, prioridade, score_risco_ia, atraso_previsto, atraso_real.
+
+Requisitos:
+
+1. Permitir upload de CSV.
+2. Mostrar cards no topo com:
+
+* total de pedidos
+* % de atraso previsto
+* % de atraso real
+* accuracy
+* precision
+* recall
+* F1-score
+
+3. Mostrar tabela interativa com filtros por país, região, fornecedor, armazém, transportadora, categoria_produto e prioridade.
+4. Destacar pedidos de alto risco com base em score_risco_ia.
+5. Mostrar matriz de confusão visual com TP, FP, TN e FN, e ao clicar sobre o quadrante da matriz, mostre o detalhamento dos dados dos clientes a que se refere em formato de tabela.
+6. Explicar em português:
+
+* falso positivo = previu atraso, mas não atrasou
+* falso negativo = não previu atraso, mas atrasou
+
+7. Incluir secção “Impacto Gerencial” explicando:
+
+* falsos positivos geram custo e ações preventivas desnecessárias
+* falsos negativos geram falhas de serviço e insatisfação do cliente
+
+8. Incluir gráficos:
+
+* pedidos por nível de risco
+* atrasos por região
+* atrasos por fornecedor
+* comparação atraso_previsto vs atraso_real
+
+9. Incluir uma secção “Recomendação para o Gestor”, com insights automáticos em português, por exemplo:
+
+* quais regiões ou fornecedores têm maior risco
+* se o modelo gera muitos alarmes falsos
+* se o maior problema é perder atrasos reais
+
+10. Incluir uma área “Pedidos Prioritários”, listando pedidos com maior score_risco_ia e recomendando ações como:
+
+* priorizar expedição
+* rever stock
+* contactar transportadora
+* avisar cliente
+
+11. Design executivo, limpo, intuitivo, com Tailwind.
+12. Sem backend. Tudo no frontend.
+13. A app deve parecer uma ferramenta de apoio à decisão.
+
+É essencial que crie uma app, rigorosamente em HTML, JS, CSS para poder ser executada localmente no portatil.
