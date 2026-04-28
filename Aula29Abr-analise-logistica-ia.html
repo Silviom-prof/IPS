@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analise Logistica com IA Preditiva</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, -apple-system, sans-serif; background: #f8fafc; margin: 0; }
+    .tab-btn { padding: 0.5rem 1rem; border-radius: 0.5rem; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 0.875rem; }
+    .tab-btn.active { background: #1e40af; color: white; border-color: #1e40af; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .card { background: white; border-radius: 0.75rem; border: 1px solid #e2e8f0; overflow: hidden; }
+    .card-header { padding: 1.25rem; border-bottom: 1px solid #f1f5f9; }
+    .card-content { padding: 1.25rem; }
+    .badge { display: inline-flex; align-items: center; padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+    .badge-red { background: #fee2e2; color: #dc2626; }
+    .badge-orange { background: #ffedd5; color: #ea580c; }
+    .badge-green { background: #dcfce7; color: #16a34a; }
+    .badge-blue { background: #dbeafe; color: #2563eb; }
+    .badge-gray { background: #f1f5f9; color: #475569; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th { text-align: left; padding: 0.75rem; background: #f8fafc; font-weight: 600; border-bottom: 2px solid #e2e8f0; position: sticky; top: 0; }
+    td { padding: 0.75rem; border-bottom: 1px solid #f1f5f9; }
+    tr.critical { background: #fef2f2; }
+    select { padding: 0.5rem; border-radius: 0.375rem; border: 1px solid #e2e8f0; font-size: 0.875rem; background: white; }
+    .matrix-btn { padding: 1.5rem; border-radius: 0.5rem; cursor: pointer; transition: all 0.2s; border: 3px solid transparent; }
+    .matrix-btn:hover { transform: scale(1.03); }
+    .matrix-btn.selected { border-width: 3px; }
+    .btn { padding: 0.625rem 1.25rem; border-radius: 0.5rem; border: none; cursor: pointer; font-size: 0.875rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary { background: #1e40af; color: white; }
+    .btn-outline { background: white; border: 1px solid #e2e8f0; color: #374151; }
+    .btn:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    // State
+    let data = [];
+    let filters = {};
+    let matrixFilter = null;
+    let activeTab = 'dashboard';
+
+    // Parse CSV
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+      const result = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        const values = parseCSVLine(lines[i]);
+        if (values.length === headers.length) {
+          const row = {};
+          headers.forEach((header, index) => {
+            row[header] = values[index].trim().replace(/"/g, '');
+          });
+          result.push(row);
+        }
+      }
+      return result;
+    }
+
+    function parseCSVLine(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === ',' && !inQuotes) {
+          result.push(current);
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current);
+      return result;
+    }
+
+    // Utility functions
+    function isCritical(row) {
+      return (
+        parseFloat(row.score_risco_ia) >= 0.7 ||
+        row.stock_insuficiente?.toLowerCase() === 'sim' ||
+        row.prioridade?.toLowerCase() === 'critica' ||
+        row.prioridade?.toLowerCase() === 'crítica' ||
+        row.dados_incompletos?.toLowerCase() === 'sim'
+      );
+    }
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('pt-PT', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(value);
+    }
+
+    function getUniqueValues(field) {
+      return [...new Set(data.map(r => r[field]).filter(Boolean))].sort();
+    }
+
+    function getFilteredData() {
+      return data.filter(row => {
+        const passesFilters = Object.entries(filters).every(([key, value]) => {
+          if (!value || value === 'all') return true;
+          return row[key] === value;
+        });
+        
+        if (matrixFilter) {
+          const previsto = row.atraso_previsto_ia?.toLowerCase() === 'sim';
+          const real = row.atraso_real?.toLowerCase() === 'sim';
+          
+          if (matrixFilter === 'tp' && !(previsto && real)) return false;
+          if (matrixFilter === 'fp' && !(previsto && !real)) return false;
+          if (matrixFilter === 'fn' && !(!previsto && real)) return false;
+          if (matrixFilter === 'tn' && !(!previsto && !real)) return false;
+        }
+        
+        return passesFilters;
+      });
+    }
+
+    function calculateMetrics() {
+      if (data.length === 0) return null;
+
+      let tp = 0, fp = 0, tn = 0, fn = 0;
+      data.forEach(row => {
+        const previsto = row.atraso_previsto_ia?.toLowerCase() === 'sim';
+        const real = row.atraso_real?.toLowerCase() === 'sim';
+        if (previsto && real) tp++;
+        else if (previsto && !real) fp++;
+        else if (!previsto && !real) tn++;
+        else if (!previsto && real) fn++;
+      });
+
+      const accuracy = (tp + tn) / (tp + tn + fp + fn) || 0;
+      const precision = tp / (tp + fp) || 0;
+      const recall = tp / (tp + fn) || 0;
+      const f1 = (2 * (precision * recall)) / (precision + recall) || 0;
+
+      const criticalOrders = data.filter(r => isCritical(r));
+      const atrasosReais = data.filter(r => r.atraso_real?.toLowerCase() === 'sim').length;
+      const atrasosPrevistos = data.filter(r => r.atraso_previsto_ia?.toLowerCase() === 'sim').length;
+      const pedidosEmRisco = data.filter(r => parseFloat(r.score_risco_ia) >= 0.7);
+      const valorEmRisco = pedidosEmRisco.reduce((sum, r) => sum + (parseFloat(r.valor_pedido_eur) || 0), 0);
+
+      return { total: data.length, critical: criticalOrders.length, atrasosReais, atrasosPrevistos, valorEmRisco, tp, fp, tn, fn, accuracy, precision, recall, f1 };
+    }
+
+    function calculateProblems() {
+      if (data.length === 0) return [];
+
+      return [
+        {
+          id: 'stock', title: 'Stock Insuficiente', color: 'red',
+          items: data.filter(r => r.stock_insuficiente?.toLowerCase() === 'sim'),
+          cause: 'Falha no planeamento de inventario, picos de procura nao previstos ou atrasos de reposicao.',
+          solutions: ['?', '?', '?']
+        },
+        {
+          id: 'fornecedor', title: 'Fornecedor Instavel', color: 'purple',
+          items: data.filter(r => parseFloat(r.taxa_atraso_fornecedor) > 0.2),
+          cause: 'Fornecedores com historico de incumprimento, problemas de capacidade ou qualidade.',
+          solutions: ['?', '?', '?']
+        },
+        {
+          id: 'transportadora', title: 'Transportadora com Risco', color: 'orange',
+          items: data.filter(r => parseFloat(r.taxa_atraso_transportadora) > 0.15),
+          cause: 'Transportadoras com baixo desempenho, rotas problematicas ou falta de capacidade.',
+          solutions: ['?', '?', '?']
+        },
+        {
+          id: 'margem', title: 'Margem Pressionada', color: 'pink',
+          items: data.filter(r => parseFloat(r.margem_prevista_pct) < 10),
+          cause: 'Custos de transporte elevados, descontos excessivos ou ineficiencias operacionais.',
+          solutions: ['?', '?', '?']
+        },
+        {
+          id: 'dados', title: 'Dados Incompletos', color: 'gray',
+          items: data.filter(r => r.dados_incompletos?.toLowerCase() === 'sim'),
+          cause: 'Registos com campos em falta, integracao deficiente entre sistemas ou erros de insercao.',
+          solutions: ['?', '?', '?']
+        }
+      ];
+    }
+
+    function calculateChartsData() {
+      if (data.length === 0) return null;
+
+      const problemCounts = {};
+      data.forEach(r => { if (r.problema_principal) problemCounts[r.problema_principal] = (problemCounts[r.problema_principal] || 0) + 1; });
+
+      const regionDelays = {};
+      data.forEach(r => { if (r.atraso_real?.toLowerCase() === 'sim' && r.regiao_destino) regionDelays[r.regiao_destino] = (regionDelays[r.regiao_destino] || 0) + 1; });
+
+      const supplierRisks = {};
+      data.forEach(r => {
+        if (r.fornecedor && r.score_risco_ia) {
+          if (!supplierRisks[r.fornecedor]) supplierRisks[r.fornecedor] = { total: 0, sum: 0 };
+          supplierRisks[r.fornecedor].total++;
+          supplierRisks[r.fornecedor].sum += parseFloat(r.score_risco_ia) || 0;
+        }
+      });
+
+      const priorityScores = {};
+      data.forEach(r => {
+        if (r.prioridade && r.score_risco_ia) {
+          if (!priorityScores[r.prioridade]) priorityScores[r.prioridade] = { total: 0, sum: 0 };
+          priorityScores[r.prioridade].total++;
+          priorityScores[r.prioridade].sum += parseFloat(r.score_risco_ia) || 0;
+        }
+      });
+
+      return {
+        problems: Object.entries(problemCounts).map(([label, value]) => ({ label, value })).sort((a, b) => b.value - a.value),
+        regions: Object.entries(regionDelays).map(([label, value]) => ({ label, value })).sort((a, b) => b.value - a.value),
+        suppliers: Object.entries(supplierRisks).map(([label, { total, sum }]) => ({ label, value: Math.round((sum / total) * 100) })).sort((a, b) => b.value - a.value),
+        priorities: Object.entries(priorityScores).map(([label, { total, sum }]) => ({ label, value: Math.round((sum / total) * 100) })).sort((a, b) => b.value - a.value)
+      };
+    }
+
+    function renderBarChart(chartData, color) {
+      const maxValue = Math.max(...chartData.map(d => d.value), 1);
+      return chartData.slice(0, 6).map(item => `
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+          <span style="width: 100px; font-size: 12px; color: #64748b; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${item.label}</span>
+          <div style="flex: 1; height: 24px; background: #f1f5f9; border-radius: 4px; overflow: hidden;">
+            <div style="height: 100%; width: ${(item.value / maxValue) * 100}%; background: ${color}; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; min-width: ${item.value > 0 ? '24px' : '0'};">
+              <span style="font-size: 12px; font-weight: 500; color: white;">${item.value}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderUploadScreen() {
+      return `
+        <div style="min-height: 100vh; padding: 2rem;">
+          <div style="max-width: 800px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 2rem;">
+              <h1 style="font-size: 1.875rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">Analise Logistica com IA Preditiva</h1>
+              <p style="color: #64748b;">Ferramenta de apoio a decisao para Gestao da Cadeia de Abastecimento</p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h2 style="font-size: 1.125rem; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  Carregar Ficheiro CSV
+                </h2>
+                <p style="color: #64748b; font-size: 0.875rem; margin-top: 0.25rem;">Arraste o ficheiro CSV ou clique para selecionar. Os dados sao processados localmente no navegador.</p>
+              </div>
+              <div class="card-content">
+                <div id="dropzone" style="border: 2px dashed #cbd5e1; border-radius: 0.5rem; padding: 3rem; text-align: center; cursor: pointer; transition: border-color 0.2s;">
+                  <svg width="48" height="48" fill="none" stroke="#94a3b8" viewBox="0 0 24 24" style="margin: 0 auto 1rem;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <p style="font-size: 1.125rem; margin-bottom: 0.5rem;">Clique aqui ou arraste o ficheiro CSV</p>
+                  <p style="font-size: 0.875rem; color: #64748b;">Nenhum dado e enviado para servidores externos</p>
+                </div>
+                <input type="file" id="fileInput" accept=".csv" style="display: none;">
+              </div>
+            </div>
+
+            <div style="text-align: center; padding: 2rem; color: #64748b; font-size: 0.875rem;">
+              <p>Ferramenta pedagogica para TIC, Logistica e Gestao da Cadeia de Abastecimento</p>
+              <p style="margin-top: 0.25rem;">Todos os dados sao processados localmente no navegador</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderMainApp() {
+      const metrics = calculateMetrics();
+      const problems = calculateProblems();
+      const chartsData = calculateChartsData();
+      const filteredData = getFilteredData();
+
+      const filterFields = [
+        { key: 'pais_destino', label: 'Pais' },
+        { key: 'regiao_destino', label: 'Regiao' },
+        { key: 'armazem_origem', label: 'Armazem' },
+        { key: 'fornecedor', label: 'Fornecedor' },
+        { key: 'transportadora', label: 'Transportadora' },
+        { key: 'prioridade', label: 'Prioridade' },
+        { key: 'categoria_produto', label: 'Categoria' },
+        { key: 'problema_principal', label: 'Problema' }
+      ];
+
+      return `
+        <header style="background: #1e40af; color: white; padding: 1.5rem; margin-bottom: 1.5rem;">
+          <div style="max-width: 1400px; margin: 0 auto;">
+            <h1 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem;">Analise Logistica com IA Preditiva</h1>
+            <p style="opacity: 0.8;">Ferramenta de apoio a decisao para SCM</p>
+          </div>
+        </header>
+
+        <main style="max-width: 1400px; margin: 0 auto; padding: 0 1rem 3rem;">
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem;">
+            <button class="tab-btn ${activeTab === 'dashboard' ? 'active' : ''}" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="tab-btn ${activeTab === 'table' ? 'active' : ''}" onclick="switchTab('table')">Analise de Pedidos</button>
+            <button class="tab-btn ${activeTab === 'problems' ? 'active' : ''}" onclick="switchTab('problems')">5 Problemas</button>
+            <button class="tab-btn ${activeTab === 'charts' ? 'active' : ''}" onclick="switchTab('charts')">Graficos</button>
+          </div>
+
+          <!-- Dashboard Tab -->
+          <div class="tab-content ${activeTab === 'dashboard' ? 'active' : ''}">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+              <div class="card">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Total de Pedidos</p>
+                  <p style="font-size: 2rem; font-weight: 700;">${metrics.total}</p>
+                </div>
+              </div>
+              <div class="card" style="border-color: #fecaca;">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Pedidos Criticos</p>
+                  <p style="font-size: 2rem; font-weight: 700; color: #dc2626;">${metrics.critical}</p>
+                </div>
+              </div>
+              <div class="card" style="border-color: #fed7aa;">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Taxa Atrasos Reais</p>
+                  <p style="font-size: 2rem; font-weight: 700; color: #ea580c;">${((metrics.atrasosReais / metrics.total) * 100).toFixed(1)}%</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Taxa Atrasos Previstos</p>
+                  <p style="font-size: 2rem; font-weight: 700; color: #2563eb;">${((metrics.atrasosPrevistos / metrics.total) * 100).toFixed(1)}%</p>
+                </div>
+              </div>
+              <div class="card" style="border-color: #fecaca;">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Valor em Risco</p>
+                  <p style="font-size: 1.5rem; font-weight: 700; color: #dc2626;">${formatCurrency(metrics.valorEmRisco)}</p>
+                </div>
+              </div>
+              <div class="card" style="border-color: #bbf7d0;">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Accuracy</p>
+                  <p style="font-size: 2rem; font-weight: 700; color: #16a34a;">${(metrics.accuracy * 100).toFixed(1)}%</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Precision</p>
+                  <p style="font-size: 2rem; font-weight: 700;">${(metrics.precision * 100).toFixed(1)}%</p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Recall</p>
+                  <p style="font-size: 2rem; font-weight: 700;">${(metrics.recall * 100).toFixed(1)}%</p>
+                </div>
+              </div>
+              <div class="card" style="border-color: #bbf7d0;">
+                <div class="card-content" style="padding: 1rem;">
+                  <p style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">F1-Score</p>
+                  <p style="font-size: 2rem; font-weight: 700; color: #16a34a;">${(metrics.f1 * 100).toFixed(1)}%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table Tab with Confusion Matrix -->
+          <div class="tab-content ${activeTab === 'table' ? 'active' : ''}">
+            <!-- Confusion Matrix -->
+            <div class="card" style="margin-bottom: 1.5rem;">
+              <div class="card-header">
+                <h2 style="font-size: 1.125rem; font-weight: 600;">Matriz de Confusao - Avaliacao da IA Preditiva</h2>
+                <p style="color: #64748b; font-size: 0.875rem;">Clique num quadrante para filtrar a tabela abaixo</p>
+              </div>
+              <div class="card-content">
+                <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; text-align: center;">
+                    <div></div>
+                    <div style="padding: 0.75rem; background: #f1f5f9; border-radius: 0.375rem; font-weight: 600; font-size: 0.75rem;">Atraso Real: Sim</div>
+                    <div style="padding: 0.75rem; background: #f1f5f9; border-radius: 0.375rem; font-weight: 600; font-size: 0.75rem;">Atraso Real: Nao</div>
+                    <div style="padding: 0.75rem; background: #f1f5f9; border-radius: 0.375rem; font-weight: 600; font-size: 0.75rem;">IA Previu: Sim</div>
+                    <button class="matrix-btn ${matrixFilter === 'tp' ? 'selected' : ''}" style="background: ${matrixFilter === 'tp' ? '#bbf7d0' : '#dcfce7'}; border-color: ${matrixFilter === 'tp' ? '#16a34a' : 'transparent'};" onclick="setMatrixFilter('tp')">
+                      <svg width="24" height="24" fill="none" stroke="#16a34a" viewBox="0 0 24 24" style="margin: 0 auto 4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #15803d;">${metrics.tp}</p>
+                      <p style="font-size: 0.625rem; color: #16a34a;">Verdadeiro Positivo</p>
+                    </button>
+                    <button class="matrix-btn ${matrixFilter === 'fp' ? 'selected' : ''}" style="background: ${matrixFilter === 'fp' ? '#fed7aa' : '#ffedd5'}; border-color: ${matrixFilter === 'fp' ? '#ea580c' : 'transparent'};" onclick="setMatrixFilter('fp')">
+                      <svg width="24" height="24" fill="none" stroke="#ea580c" viewBox="0 0 24 24" style="margin: 0 auto 4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #c2410c;">${metrics.fp}</p>
+                      <p style="font-size: 0.625rem; color: #ea580c;">Falso Positivo</p>
+                    </button>
+                    <div style="padding: 0.75rem; background: #f1f5f9; border-radius: 0.375rem; font-weight: 600; font-size: 0.75rem;">IA Previu: Nao</div>
+                    <button class="matrix-btn ${matrixFilter === 'fn' ? 'selected' : ''}" style="background: ${matrixFilter === 'fn' ? '#fecaca' : '#fee2e2'}; border-color: ${matrixFilter === 'fn' ? '#dc2626' : 'transparent'};" onclick="setMatrixFilter('fn')">
+                      <svg width="24" height="24" fill="none" stroke="#dc2626" viewBox="0 0 24 24" style="margin: 0 auto 4px;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #b91c1c;">${metrics.fn}</p>
+                      <p style="font-size: 0.625rem; color: #dc2626;">Falso Negativo</p>
+                    </button>
+                    <button class="matrix-btn ${matrixFilter === 'tn' ? 'selected' : ''}" style="background: ${matrixFilter === 'tn' ? '#bfdbfe' : '#dbeafe'}; border-color: ${matrixFilter === 'tn' ? '#2563eb' : 'transparent'};" onclick="setMatrixFilter('tn')">
+                      <svg width="24" height="24" fill="none" stroke="#2563eb" viewBox="0 0 24 24" style="margin: 0 auto 4px;"><circle cx="12" cy="12" r="9" stroke-width="2"/><circle cx="12" cy="12" r="3" stroke-width="2"/></svg>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #1d4ed8;">${metrics.tn}</p>
+                      <p style="font-size: 0.625rem; color: #2563eb;">Verdadeiro Negativo</p>
+                    </button>
+                  </div>
+
+                  <div style="flex: 1; min-width: 300px;">
+                    <h4 style="font-weight: 600; margin-bottom: 1rem;">Impacto Gerencial dos Erros</h4>
+                    <div style="padding: 1rem; background: #fff7ed; border-left: 4px solid #f97316; border-radius: 0.375rem; margin-bottom: 1rem;">
+                      <h5 style="font-weight: 600; color: #9a3412; margin-bottom: 0.25rem;">Falso Positivo (${metrics.fp} casos)</h5>
+                      <p style="font-size: 0.875rem; color: #c2410c;">A IA previu atraso, mas nao houve atraso. <strong>Impacto:</strong> Gera custo preventivo desnecessario - recursos alocados para resolver um problema que nao existia.</p>
+                    </div>
+                    <div style="padding: 1rem; background: #fef2f2; border-left: 4px solid #ef4444; border-radius: 0.375rem; margin-bottom: 1rem;">
+                      <h5 style="font-weight: 600; color: #991b1b; margin-bottom: 0.25rem;">Falso Negativo (${metrics.fn} casos)</h5>
+                      <p style="font-size: 0.875rem; color: #b91c1c;">A IA nao previu atraso, mas houve atraso. <strong>Impacto:</strong> Falha grave de servico - o atraso nao foi antecipado, resultando em insatisfacao do cliente e danos a reputacao.</p>
+                    </div>
+                    ${matrixFilter ? `<button class="btn btn-outline" style="width: 100%;" onclick="clearMatrixFilter()">Limpar Filtro da Matriz</button>` : ''}
+                  </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                  <div class="card">
+                    <div class="card-content" style="text-align: center; padding: 1rem;">
+                      <p style="font-size: 0.625rem; color: #64748b; text-transform: uppercase;">Accuracy</p>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">${(metrics.accuracy * 100).toFixed(1)}%</p>
+                      <p style="font-size: 0.625rem; color: #64748b;">Previsoes corretas</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content" style="text-align: center; padding: 1rem;">
+                      <p style="font-size: 0.625rem; color: #64748b; text-transform: uppercase;">Precision</p>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">${(metrics.precision * 100).toFixed(1)}%</p>
+                      <p style="font-size: 0.625rem; color: #64748b;">Quando preve atraso, acerta</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content" style="text-align: center; padding: 1rem;">
+                      <p style="font-size: 0.625rem; color: #64748b; text-transform: uppercase;">Recall</p>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">${(metrics.recall * 100).toFixed(1)}%</p>
+                      <p style="font-size: 0.625rem; color: #64748b;">Detecta atrasos reais</p>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-content" style="text-align: center; padding: 1rem;">
+                      <p style="font-size: 0.625rem; color: #64748b; text-transform: uppercase;">F1-Score</p>
+                      <p style="font-size: 1.5rem; font-weight: 700; color: #1e40af;">${(metrics.f1 * 100).toFixed(1)}%</p>
+                      <p style="font-size: 0.625rem; color: #64748b;">Equilibrio Precision/Recall</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="card">
+              <div class="card-header">
+                <h2 style="font-size: 1.125rem; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                  Tabela de Pedidos
+                  ${matrixFilter ? `<span class="badge badge-blue">${matrixFilter === 'tp' ? 'Verdadeiro Positivo' : matrixFilter === 'fp' ? 'Falso Positivo' : matrixFilter === 'fn' ? 'Falso Negativo' : 'Verdadeiro Negativo'}</span>` : ''}
+                </h2>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;">
+                  ${filterFields.map(f => `
+                    <select onchange="setFilter('${f.key}', this.value)">
+                      <option value="all">${f.label}: Todos</option>
+                      ${getUniqueValues(f.key).map(v => `<option value="${v}" ${filters[f.key] === v ? 'selected' : ''}>${v}</option>`).join('')}
+                    </select>
+                  `).join('')}
+                </div>
+              </div>
+              <div class="card-content">
+                <div style="overflow-x: auto; max-height: 500px; overflow-y: auto;">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Pais</th>
+                        <th>Fornecedor</th>
+                        <th>Valor</th>
+                        <th>Risco IA</th>
+                        <th>Prioridade</th>
+                        <th>Atraso Prev.</th>
+                        <th>Atraso Real</th>
+                        <th>Problema</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${filteredData.slice(0, 100).map(row => {
+                        const critical = isCritical(row);
+                        const score = parseFloat(row.score_risco_ia) || 0;
+                        return `
+                          <tr class="${critical ? 'critical' : ''}">
+                            <td style="font-family: monospace; font-size: 0.75rem;">${row.id_pedido}</td>
+                            <td>${row.cliente}</td>
+                            <td>${row.pais_destino}</td>
+                            <td>${row.fornecedor}</td>
+                            <td>${formatCurrency(parseFloat(row.valor_pedido_eur) || 0)}</td>
+                            <td><span class="badge ${score >= 0.7 ? 'badge-red' : score >= 0.4 ? 'badge-orange' : 'badge-gray'}">${(score * 100).toFixed(0)}%</span></td>
+                            <td><span class="badge ${row.prioridade?.toLowerCase() === 'critica' || row.prioridade?.toLowerCase() === 'crítica' ? 'badge-red' : row.prioridade?.toLowerCase() === 'alta' ? 'badge-orange' : 'badge-gray'}">${row.prioridade}</span></td>
+                            <td><span class="badge ${row.atraso_previsto_ia?.toLowerCase() === 'sim' ? 'badge-red' : 'badge-gray'}">${row.atraso_previsto_ia}</span></td>
+                            <td><span class="badge ${row.atraso_real?.toLowerCase() === 'sim' ? 'badge-red' : 'badge-gray'}">${row.atraso_real}</span></td>
+                            <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${row.problema_principal || ''}</td>
+                          </tr>
+                        `;
+                      }).join('')}
+                    </tbody>
+                  </table>
+                </div>
+                <p style="font-size: 0.875rem; color: #64748b; margin-top: 1rem;">${filteredData.length} pedidos apresentados | Linhas vermelhas indicam pedidos criticos</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Problems Tab -->
+          <div class="tab-content ${activeTab === 'problems' ? 'active' : ''}">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem;">
+              ${problems.map(problem => {
+                const valor = problem.items.reduce((sum, r) => sum + (parseFloat(r.valor_pedido_eur) || 0), 0);
+                const colors = {
+                  red: { border: '#fca5a5', bg: '#fef2f2', text: '#dc2626' },
+                  purple: { border: '#c4b5fd', bg: '#f5f3ff', text: '#7c3aed' },
+                  orange: { border: '#fdba74', bg: '#fff7ed', text: '#ea580c' },
+                  pink: { border: '#f9a8d4', bg: '#fdf2f8', text: '#db2777' },
+                  gray: { border: '#d1d5db', bg: '#f9fafb', text: '#4b5563' }
+                };
+                const c = colors[problem.color];
+                return `
+                  <div class="card" style="border-left: 4px solid ${c.border};">
+                    <div class="card-header" style="padding-bottom: 0.5rem;">
+                      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                        <h3 style="font-size: 1rem; font-weight: 600; color: ${c.text};">${problem.title}</h3>
+                        <div style="text-align: right;">
+                          <p style="font-size: 1.5rem; font-weight: 700;">${problem.items.length}</p>
+                          <p style="font-size: 0.75rem; color: #dc2626; font-weight: 500;">${formatCurrency(valor)}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-content" style="font-size: 0.875rem;">
+                      <div style="margin-bottom: 0.75rem;">
+                        <span style="font-weight: 600;">Causa provavel:</span>
+                        <p style="color: #64748b;">${problem.cause}</p>
+                      </div>
+                      <div>
+                        <span style="font-weight: 600;">Solucoes:</span>
+                        <ul style="color: #64748b; margin: 0.25rem 0 0 1.25rem; padding: 0;">
+                          ${problem.solutions.map(s => `<li>${s}</li>`).join('')}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Charts Tab -->
+          <div class="tab-content ${activeTab === 'charts' ? 'active' : ''}">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem;">
+              <div class="card">
+                <div class="card-header">
+                  <h3 style="font-size: 1rem; font-weight: 600;">Pedidos por Problema Principal</h3>
+                </div>
+                <div class="card-content">
+                  ${chartsData ? renderBarChart(chartsData.problems, '#3b82f6') : ''}
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h3 style="font-size: 1rem; font-weight: 600;">Atrasos por Regiao</h3>
+                </div>
+                <div class="card-content">
+                  ${chartsData ? renderBarChart(chartsData.regions, '#f59e0b') : ''}
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h3 style="font-size: 1rem; font-weight: 600;">Risco Medio por Fornecedor (%)</h3>
+                </div>
+                <div class="card-content">
+                  ${chartsData ? renderBarChart(chartsData.suppliers, '#8b5cf6') : ''}
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header">
+                  <h3 style="font-size: 1rem; font-weight: 600;">Score Risco por Prioridade (%)</h3>
+                </div>
+                <div class="card-content">
+                  ${chartsData ? renderBarChart(chartsData.priorities, '#ec4899') : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 2rem;">
+            <button class="btn btn-outline" onclick="resetApp()">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+              Carregar Novo Ficheiro
+            </button>
+          </div>
+        </main>
+
+        <footer style="text-align: center; padding: 2rem; color: #64748b; font-size: 0.875rem; border-top: 1px solid #e2e8f0;">
+          <p>Ferramenta pedagogica para TIC, Logistica e Gestao da Cadeia de Abastecimento</p>
+          <p style="margin-top: 0.25rem;">Todos os dados sao processados localmente no navegador</p>
+        </footer>
+      `;
+    }
+
+    function switchTab(tab) {
+      activeTab = tab;
+      render();
+    }
+
+    function setFilter(key, value) {
+      filters[key] = value;
+      render();
+    }
+
+    function setMatrixFilter(filter) {
+      matrixFilter = matrixFilter === filter ? null : filter;
+      render();
+    }
+
+    function clearMatrixFilter() {
+      matrixFilter = null;
+      render();
+    }
+
+    function resetApp() {
+      data = [];
+      filters = {};
+      matrixFilter = null;
+      activeTab = 'dashboard';
+      render();
+    }
+
+    function handleFile(file) {
+      if (!file || !file.name.endsWith('.csv')) return;
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target.result;
+        const parsed = parseCSV(text);
+        if (parsed.length > 0) {
+          data = parsed;
+          filters = {};
+          matrixFilter = null;
+          activeTab = 'dashboard';
+          render();
+        }
+      };
+      reader.readAsText(file, 'UTF-8');
+    }
+
+    function render() {
+      const app = document.getElementById('app');
+      app.innerHTML = data.length === 0 ? renderUploadScreen() : renderMainApp();
+
+      if (data.length === 0) {
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+        dropzone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = '#3b82f6';
+        });
+        dropzone.addEventListener('dragleave', () => {
+          dropzone.style.borderColor = '#cbd5e1';
+        });
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropzone.style.borderColor = '#cbd5e1';
+          handleFile(e.dataTransfer.files[0]);
+        });
+        fileInput.addEventListener('change', (e) => {
+          handleFile(e.target.files[0]);
+        });
+      }
+    }
+
+    render();
+  </script>
+</body>
+</html>
